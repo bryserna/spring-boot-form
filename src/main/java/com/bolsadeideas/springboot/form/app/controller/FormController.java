@@ -7,24 +7,30 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@SessionAttributes("usuario")
 public class FormController {
 
     @GetMapping("/form")
     public String form(Model model){
         Usuario usuario = new Usuario();
+        usuario.setNombre("Bryan");
+        usuario.setApellido("seros");
+        usuario.setIdentificador("12345-k");
         model.addAttribute("titulo","Formulario Usuario");
         model.addAttribute("usuario",usuario);
         return "form";
     }
 
     @PostMapping("/form")
-    public String procesar(@Valid Usuario usuario, BindingResult result, Model model){
+    public String procesar(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status){
 
         model.addAttribute("titulo", "Resultado form");
 
@@ -38,6 +44,7 @@ public class FormController {
         }
 
         model.addAttribute("usuario", usuario);
+        status.setComplete();
         return "resultado";
     }
 }

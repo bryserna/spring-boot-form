@@ -7,6 +7,25 @@
 <body>
 <h3 th:text="${titulo}">Title</h3>
 <form th:action="@{/form}" th:object="${usuario}" method="post">
+    <div>
+        <label form="nombre">Nombre</label>
+        <div>
+            <input type="text" name="nombre" id="nombre" th:field="*{nombre}">
+        </div>
+        <!--<div th:if="${error != null && error.containsKey('username')}" th:text="${error.username}"></div>-->
+        <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+    </div>
+
+    <div>
+        <label form="apellido">Apellido</label>
+        <div>
+            <input type="text" name="apellido" id="apellido" th:field="*{apellido}">
+        </div>
+        <!--<div th:if="${error != null && error.containsKey('username')}" th:text="${error.username}"></div>-->
+        <div th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></div>
+    </div>
+
+
 <div>
     <label form="username">Username</label>
     <div>
